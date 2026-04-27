@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Microsoft 365 Copilot Cowork** custom-skill deployment now actually works end-to-end (the `experimental cowork` target listed in v0.9.3 shipped its implementation in this release): `apm install --target cowork --global` writes skills to OneDrive at the resolved Cowork directory (env > `apm config cowork-skills-dir` > macOS CloudStorage glob > Windows `ONEDRIVECOMMERCIAL`), with path-safety guards on the resolver, warn-only caps (50 skills / 1 MiB SKILL.md), and a synthetic `cowork://` lockfile scheme. Behind `apm experimental enable cowork`; user scope only. (#926)
 - README "Coming from `npx skills add`?" conversion block: a 30-second migration table for users arriving from the agentskills.io ecosystem, mapping every `npx skills` verb to its `apm` equivalent. (#980)
 
 ### Fixed
@@ -22,7 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `pr-description-skill` ships an evals suite (genesis-driven): 18 trigger evals on the val-split ship gate + 3 content scenarios with/without the skill loaded (anchor delta +6 to +11 across refactor / docs-only / dep-bump shapes). Runs deterministically without an LLM API key, so PR-description quality regressions are caught in CI. (#985)
 - `pr-description-skill` mermaid guidance hardened: new asset `assets/mermaid-conventions.md` defines diagram-type-by-intent (sequenceDiagram for execution flow with `rect rgb(...)` boxing, flowchart for pipelines/architecture with `classDef new`, stateDiagram-v2 for state machines) and captures GitHub-renderer gotchas that `mmdc` does not always catch (notably: square brackets in flowchart edge labels MUST be quoted -- `|"[label]"|` not `|[label]|`). (#984)
-- Windows CI no longer crashes on the non-ASCII SKILL.md test fixture (forced UTF-8 read; cp1252 default was raising `UnicodeDecodeError` during test discovery). (#979)
 
 ## [0.9.4] - 2026-04-27
 
