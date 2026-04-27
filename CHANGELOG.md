@@ -8,13 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-04-27
+
+### Added
+
+- README "Coming from `npx skills add`?" conversion block: a 30-second migration table for users arriving from the agentskills.io ecosystem, mapping every `npx skills` verb to its `apm` equivalent. (#980)
+
 ### Fixed
 
-- Docs site auto-deploys again after bot-cut releases by correctly detecting tag-push context in `docs.yml`. (#953)
+- Docs site actually auto-deploys after bot-cut releases now: triggers on tag push instead of via `workflow_call` (the branch added in #953 was unreachable from the bot's release event). (#981)
 
 ### Maintainer tooling
 
-- `pr-description-skill` mermaid guidance hardened: new asset `assets/mermaid-conventions.md` defines diagram-type-by-intent (sequenceDiagram for execution flow with `rect rgb(...)` boxing, flowchart for pipelines/architecture with `classDef new`, stateDiagram-v2 for state machines) and captures GitHub-renderer gotchas that `mmdc` does not always catch (notably: square brackets in flowchart edge labels MUST be quoted -- `|"[label]"|` not `|[label]|`).
+- `pr-description-skill` ships an evals suite (genesis-driven): 18 trigger evals on the val-split ship gate + 3 content scenarios with/without the skill loaded (anchor delta +6 to +11 across refactor / docs-only / dep-bump shapes). Runs deterministically without an LLM API key, so PR-description quality regressions are caught in CI. (#985)
+- `pr-description-skill` mermaid guidance hardened: new asset `assets/mermaid-conventions.md` defines diagram-type-by-intent (sequenceDiagram for execution flow with `rect rgb(...)` boxing, flowchart for pipelines/architecture with `classDef new`, stateDiagram-v2 for state machines) and captures GitHub-renderer gotchas that `mmdc` does not always catch (notably: square brackets in flowchart edge labels MUST be quoted -- `|"[label]"|` not `|[label]|`). (#984)
+- Windows CI no longer crashes on the non-ASCII SKILL.md test fixture (forced UTF-8 read; cp1252 default was raising `UnicodeDecodeError` during test discovery). (#979)
 
 ## [0.9.4] - 2026-04-27
 
